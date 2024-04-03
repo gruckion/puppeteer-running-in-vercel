@@ -32,9 +32,6 @@ export async function GET(request: NextRequest) {
   return new NextResponse(pdf, {
     headers: {
       "Content-Type": "application/pdf",
-      // "Content-Disposition": "attachment; filename=example.pdf",
     },
   });
-
-  // return new NextResponse("Hello, world!");
 }
