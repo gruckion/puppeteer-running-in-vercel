@@ -3,43 +3,28 @@ import puppeteerCore from "puppeteer-core";
 import puppeteer from "puppeteer";
 import chromium from "@sparticuz/chromium";
 
-// class MyClass {
-//   #privateField = 42;
+export const dynamic = "force-dynamic";
 
-//   #privateMethod() {
-//     console.log("This is a private method");
-//   }
+async function getBrowser() {
+  if (process.env.VERCEL_ENV === "production") {
+    const executablePath = await chromium.executablePath();
 
-//   publicMethod() {
-//     console.log("This is a public method");
-//     console.log("Private field value:", this.#privateField);
-//     this.#privateMethod();
-//   }
-// }
-
-// const instance = new MyClass();
-// instance.publicMethod();
-// // Output:
-// // This is a public method
-// // Private field value: 42
-// // This is a private method
-
-// console.log(instance.#privateField); // Error: Private field '#privateField' must be declared in an enclosing class
-// instance.#privateMethod(); // Error: Private method '#privateMethod' must be declared in an enclosing class
+    const browser = await puppeteerCore.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath,
+      headless: chromium.headless,
+    });
+    return browser;
+  } else {
+    const browser = await puppeteer.launch();
+    return browser;
+  }
+}
 
 export async function GET(request: NextRequest) {
-  const executablePath = await chromium.executablePath();
+  const browser = await getBrowser();
 
-  const browser = await puppeteer.launch(
-    process.env.VERCEL_ENV === "production"
-      ? {
-          args: chromium.args,
-          defaultViewport: chromium.defaultViewport,
-          executablePath,
-          headless: chromium.headless,
-        }
-      : undefined
-  );
   const page = await browser.newPage();
   await page.goto("https://example.com");
   const pdf = await page.pdf();
