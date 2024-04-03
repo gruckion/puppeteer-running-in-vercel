@@ -1,12 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
-import puppeteerCore from "puppeteer-core";
-import puppeteer from "puppeteer";
-import chromium from "@sparticuz/chromium";
 
 export const dynamic = "force-dynamic";
 
 async function getBrowser() {
   if (process.env.VERCEL_ENV === "production") {
+    const chromium = await import("@sparticuz/chromium").then(
+      (mod) => mod.default
+    );
+
+    const puppeteerCore = await import("puppeteer-core").then(
+      (mod) => mod.default
+    );
+
     const executablePath = await chromium.executablePath();
 
     const browser = await puppeteerCore.launch({
@@ -17,6 +22,8 @@ async function getBrowser() {
     });
     return browser;
   } else {
+    const puppeteer = await import("puppeteer").then((mod) => mod.default);
+
     const browser = await puppeteer.launch();
     return browser;
   }
