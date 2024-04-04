@@ -16,5 +16,6 @@
       ]
     }
   ],
-  "outputDirectory": ".next/build"
+  "outputDirectory": ".next/build",
+  "regions": ["lhr1"]
 }
