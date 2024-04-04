@@ -2,9 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
+const CHROMIUM_PATH =
+  "https://vomrghiulbmrfvmhlflk.supabase.co/storage/v1/object/public/chromium-pack/chromium-v123.0.0-pack.tar";
+
 async function getBrowser() {
   if (process.env.VERCEL_ENV === "production") {
-    const chromium = await import("@sparticuz/chromium").then(
+    const chromium = await import("@sparticuz/chromium-min").then(
       (mod) => mod.default
     );
 
@@ -12,7 +15,7 @@ async function getBrowser() {
       (mod) => mod.default
     );
 
-    const executablePath = await chromium.executablePath();
+    const executablePath = await chromium.executablePath(CHROMIUM_PATH);
 
     const browser = await puppeteerCore.launch({
       args: chromium.args,

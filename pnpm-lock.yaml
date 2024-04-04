@@ -8,6 +8,9 @@ dependencies:
   '@sparticuz/chromium':
     specifier: ^123.0.0
     version: 123.0.0
+  '@sparticuz/chromium-min':
+    specifier: ^123.0.0
+    version: 123.0.0
   next:
     specifier: 14.1.4
     version: 14.1.4(react-dom@18.2.0)(react@18.2.0)
@@ -354,6 +357,16 @@ packages:
   /@rushstack/eslint-patch@1.10.1:
     resolution: {integrity: sha512-S3Kq8e7LqxkA9s7HKLqXGTGck1uwis5vAXan3FnU5yw1Ec5hsSGnq4s/UCaSqABPOnOTg7zASLyst7+ohgWexg==}
     dev: true
+
+  /@sparticuz/chromium-min@123.0.0:
+    resolution: {integrity: sha512-poJ+ykcM/cbtHLcYCuvn9mPbFa9elyTvKmq/1cvlUPo6nFbBwdthRnVVlv/9DfBaaH4Gy7XdzBRTinS1sTJw7g==}
+    engines: {node: '>= 16'}
+    dependencies:
+      follow-redirects: 1.15.6
+      tar-fs: 3.0.5
+    transitivePeerDependencies:
+      - debug
+    dev: false
 
   /@sparticuz/chromium@123.0.0:
     resolution: {integrity: sha512-W1iR3CHiuiyeRix6WK2eKbQLiKkdhiayzDlDNiZAako1pvnSvh+y1UKaZoYIL37eI47zraMA9OkAhkbubp1qUA==}
